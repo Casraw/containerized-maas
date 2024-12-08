@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 systemctl="$(command -v systemctl)"
 
@@ -49,8 +49,8 @@ Wants=snapd.seeded.service
 After=snapd.service snapd.socket snapd.seeded.service
 
 [Service]
-ExecStartPre=/bin/bash -c '/usr/bin/snap install /snapd.snap --dangerous < /dev/null'
-ExecStartPre=/bin/bash -c '/usr/bin/snap install maas < /dev/null'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/snap install /snapd.snap --dangerous < /dev/null'
+ExecStartPre=/usr/bin/bash -c '/usr/bin/snap install maas < /dev/null'
 ExecStart=/usr/local/bin/docker_commandline.sh
 Environment="SNAPPY_LAUNCHER_INSIDE_TESTS=true"
 Environment="LANG=en_US.UTF-8"

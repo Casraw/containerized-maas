@@ -1,13 +1,13 @@
 services:
   postgresql:
     image: bitnami/postgresql:14-debian-12
+    ports:
+      - 5432:5432
     environment:
       - POSTGRESQL_MAX_CONNECTIONS=500
       - POSTGRESQL_USERNAME=maas
       - POSTGRESQL_PASSWORD=maas
       - POSTGRESQL_DATABASE=maasdb
-    networks:
-      - app-tier
 
   cmaas:
     image: casraw/cmaas:master
@@ -29,9 +29,3 @@ services:
       maas createadmin --username ${MAAS_PROFILE} --password ${MAAS_PASS} --email ${MAAS_EMAIL} --ssh-import ${MAAS_SSH_IMPORT_ID} &&
       maas login ${MAAS_PROFILE} ${MAAS_URL} $(maas apikey --username ${MAAS_PROFILE}) &&
       bash"
-    networks:
-      - app-tier
-
-networks:
-  app-tier:
-    driver: bridge
